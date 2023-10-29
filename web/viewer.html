@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Drawings</title>
+    <style>
+        .group {
+            display: flex;
+            align-items: center;
+        }
+        .group img {
+            width: 50px;
+            border: 1px solid black;
+        }
+        .group h3{
+            width: 10%;
+            word-wrap: break-word;
+        }
+        #chartContainer{
+            position: fixed;
+            right: 0;
+            top: 50vh;
+        }
+        #chartsColor{
+            width: 100px;
+            background-color: skyblue;
+            text-align: center;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="chartsColor"></div>
+    <div id="sketchContainer"></div>
+    <h3 id="notify"></h3>
+    <h2 id="predectedLabel"></h2>
+    <div id="chartContainer"></div>
+    <div id="container"></div>
+    <script src="../common/constants.js"></script>
+    <script src="../common/utilts.js"></script>
+    <script src="../common/draw.js"></script>
+    <script src="../common/featuresCollector.js"></script>
+    <!-- <script src="../data/dataset/features.js"></script> -->
+    <script src="./js/sketchPad.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="./js/view.js"></script>
+</body>
+</html>

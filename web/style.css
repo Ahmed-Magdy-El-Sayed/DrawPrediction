@@ -1,0 +1,32 @@
+body{
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #777;
+}
+#sketchPadContainer{
+    visibility: hidden;
+}
+#sketchPadContainer .undo{
+    display: block;
+    margin: auto;
+    margin-top: 30px;
+    cursor: pointer;
+}
+
+.group {
+    display: flex;
+    align-items: center;
+}
+.group img {
+    width: 50px;
+    border: 1px solid black;
+}
+.group h3{
+    width: 10%;
+    word-wrap: break-word;
+}
