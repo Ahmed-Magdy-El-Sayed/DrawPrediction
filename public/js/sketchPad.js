@@ -1,6 +1,5 @@
 class SketchPad{
-    constructor(container, onUpdate=null, size=400){
-        this.onUpdate=onUpdate;
+    constructor(container, size=400){
         this.canvas= document.createElement("canvas")
         this.canvas.width= size;
         this.canvas.height= size;
@@ -50,9 +49,9 @@ class SketchPad{
 
         const undoBtn = document.createElement("button");
         undoBtn.innerHTML="UNDO";
-        undoBtn.setAttribute("class","undo")
+        undoBtn.setAttribute("class","undo red")
         undoBtn.disabled = true;
-        this.canvas.after(undoBtn);
+        this.canvas.before(undoBtn);
 
         undoBtn.onclick=()=>{
             this.paths.pop();
@@ -62,16 +61,32 @@ class SketchPad{
             }
         }
     }
+    #path=(ctx, path, color="black")=>{
+        ctx.strokeStyle = color;
+        ctx.lineWidth=5;
+        ctx.beginPath();
+        ctx.moveTo(...path[0]);
+        // ctx.lineTo(...path[0]);
+        for (let i = 1; i < path.length; i++) {
+            ctx.lineTo(...path[i]);
+        }
+        ctx.lineCap="round";
+        ctx.lineJoin="round";
+        ctx.stroke();
+    }
+    
+    #paths= (ctx, paths, color="black")=>{
+        for (const path of paths) {
+            this.#path(ctx, path, color="black")
+        }
+    }
     reset(){
         this.paths=[];
         this.#reDraw();
     }
     #reDraw(){
         this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
-        draw.paths(this.ctx,this.paths);
-        if(this.onUpdate){
-            this.onUpdate(this.paths)
-        }
+        this.#paths(this.ctx,this.paths);
     }
     #getMouth = e =>{
         const rect = this.canvas.getBoundingClientRect();

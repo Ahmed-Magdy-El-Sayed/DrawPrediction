@@ -1,13 +1,14 @@
-const path = require('path')
-const fs =require("fs")
+const path = require("path")
+const { labelsStyles } = require("../common/utilts")
+const fs = require("fs")
+const constants = require("../common/constants")
 
 module.exports = {
     getDrawPage: (req,res)=>{
-        res.sendFile(path.resolve(__dirname,'..','web','draw.html'));
+        res.render("draw", {labels: Object.keys(labelsStyles)})
     },
     saveDraw: (req, res)=>{
-        const data = JSON.parse(req.body)
-        fs.appendFileSync(path.join(__dirname, '..', 'data', 'dataset', 'ndjson', data.word+'.ndjson'), req.body)
+        fs.appendFileSync(path.join(__dirname, constants.INSOURCE_DIR, req.body.label+".ndjson"), JSON.stringify(req.body)+"\n")
         res.status(201).end()
     }
 }

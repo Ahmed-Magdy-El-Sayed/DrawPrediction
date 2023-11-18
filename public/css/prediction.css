@@ -1,0 +1,25 @@
+.group {
+    display: flex;
+    align-items: center;
+}
+.group img {
+    width: 50px;
+    border: 1px solid black;
+}
+.group h3{
+    width: 10%;
+    word-wrap: break-word;
+}
+#chartContainer{
+    position: fixed;
+    right: 0;
+    top: 50vh;
+}
+#chartsColor{
+    width: 100px;
+    background-color: skyblue;
+    text-align: center;
+    position: absolute;
+    right: 0;
+    top: 0;
+}

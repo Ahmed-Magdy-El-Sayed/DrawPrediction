@@ -1,0 +1,22 @@
+extends ./module
+block variables 
+    -let pageTitle = "Predicate"
+
+block linkCSS 
+    link(rel="stylesheet", href="/css/prediction.css")
+
+block content 
+    #drawsLables(style="display:none", data-draws=drawsStyles)
+    #chartsColor
+    #sketchContainer
+    button#predicate.blue Predicate
+    button#makeChart.blue Make Chart
+    h3#notify
+    h2#label
+    img#chart
+    #container
+
+block js 
+    script const drawsStyles = JSON.parse(drawsLables.dataset.draws)
+    script(src="/js/sketchPad.js") 
+    script(src="/js/prediction.js") 

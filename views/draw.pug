@@ -1,0 +1,21 @@
+extends ./module
+block variables
+    -let pageTitle = 'Draw'
+block linkCSS 
+    link(rel="stylesheet", href="/css/draw.css")
+
+block content 
+    #details
+        h2 what will you draw?
+        each label in labels.slice(0,-1)
+            input(type="radio", name="label", value= label)
+            span= label
+        p other: 
+            input(type="radio", name="label", value= "others")
+            input(type="text", name="label")
+    button.blue#startBtn(type="button", onclick="start()") Start
+    #sketchContainer
+
+block js 
+    script(src="/js/sketchPad.js") 
+    script(src="/js/draw.js") 

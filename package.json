@@ -1,7 +1,10 @@
 {
   "dependencies": {
     "canvas": "^2.11.2",
+    "chart.js": "^3.9.1",
+    "chartjs-node-canvas": "^4.1.6",
     "express": "^4.18.2",
+    "google-charts-node": "^2.0.0",
     "ndjson": "^2.0.0",
     "pug": "^3.0.2"
   }

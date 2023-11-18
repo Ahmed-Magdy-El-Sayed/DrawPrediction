@@ -1,0 +1,68 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    margin: 0;
+    text-align: center;
+    background-color: #777;
+}
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    margin-bottom: 20px;
+    background-color: #333;
+}
+.navbar a{
+    text-decoration: none;
+    color: white;
+}
+.navbar ul{
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+button{
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    margin: auto 10px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.red{
+    background-color: firebrick;
+}
+.red:disabled{
+    background-color: rgba(178, 34, 34, 0.418);
+    cursor:default;
+}
+.red:not(:disabled):hover{
+    border: 2px solid firebrick;
+    background-color: transparent;
+    color: firebrick;
+}
+.blue{
+    background-color: dodgerblue;
+}
+.blue:disabled{
+    background-color: rgba(30, 143, 255, 0.438);
+    cursor:default;
+}
+.blue:not(:disabled):hover{
+    border: 2px solid dodgerblue;
+    background-color: transparent;
+    color: dodgerblue;
+}
+#sketchContainer{
+    margin-bottom: 10px;
+}
+#sketchContainer button.undo{
+    display: block;
+    margin: auto;
+    margin-bottom: 10px;
+}
+img{
+    background-color: white;
+}
