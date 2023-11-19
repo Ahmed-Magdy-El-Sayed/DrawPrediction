@@ -6,7 +6,7 @@ utilts.printProgress=(count, max)=>{
         process.stdout.cursorTo(0);
     process.stdout.write(`${count}/${max} (${(count*100/max).toFixed(2)}%)`);
 }
-
+utilts.labels = ["airplane", "alarm clock", "apple", "bicycle", "car", "tree"]
 utilts.labelsStyles={
     "airplane":"blue",
     "alarm clock":"deepskyblue",
@@ -26,6 +26,19 @@ utilts.groupBy=(objArray, key)=>{
         groups[val].push(obj)
     }
     return groups;
+}
+
+utilts.generateImgFile = (outFile, paths)=>{
+    const {createCanvas} = require("canvas");
+    const canvas = createCanvas(500, 500)
+    const ctx = canvas.getContext("2d");
+    const draw = require("../common/draw");
+    const fs = require("fs")
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    draw.paths(ctx, paths);
+    const buffer = canvas.toBuffer("image/png");
+    fs.writeFileSync(outFile, buffer);
 }
 
 utilts.repetitionNum= (samples, indexs)=>{

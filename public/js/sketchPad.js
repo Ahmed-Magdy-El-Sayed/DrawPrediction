@@ -10,12 +10,15 @@ class SketchPad{
         container.appendChild(this.canvas)
         this.ctx = this.canvas.getContext("2d")
         this.paths=[];
+        this.undoPaths=[]
         this.isDrawing=false;
         this.#addEventListeners();
     }
 
     #addEventListeners(){
         this.canvas.onmousedown= e=>{
+            this.undoPaths = [];
+            redoBtn.disabled = true;
             this.isDrawing = true;
             const mouse = this.#getMouth(e);
             this.paths.push([mouse]);
@@ -36,6 +39,8 @@ class SketchPad{
         }
 
         this.canvas.ontouchstart= e=>{
+            this.undoPaths = [];
+            redoBtn.disabled = true;
             const loc = e.touches[0];
             this.canvas.onmousedown(loc)
         }
@@ -47,17 +52,40 @@ class SketchPad{
             this.canvas.onmouseup();
         }
 
+        const options = document.createElement("span")
+        options.classList.add("options")
+
         const undoBtn = document.createElement("button");
         undoBtn.innerHTML="UNDO";
         undoBtn.setAttribute("class","undo red")
         undoBtn.disabled = true;
-        this.canvas.before(undoBtn);
+        options.appendChild(undoBtn)
+
+
+        const redoBtn = document.createElement("button");
+        redoBtn.innerHTML="REDO";
+        redoBtn.setAttribute("class","redo blue")
+        redoBtn.disabled = true;
+        options.appendChild(redoBtn)
+
+        this.canvas.before(options);
 
         undoBtn.onclick=()=>{
-            this.paths.pop();
+            redoBtn.disabled = false;
+            this.undoPaths.push(this.paths.pop());
             this.#reDraw();
             if(this.paths.length < 1){
                 undoBtn.disabled = true;
+            }
+        }
+        redoBtn.onclick=()=>{
+            if(this.undoPaths.length <= 0)
+                return null
+            undoBtn.disabled = false;
+            this.paths.push(this.undoPaths.pop());
+            this.#reDraw();
+            if(this.undoPaths.length < 1){
+                redoBtn.disabled = true;
             }
         }
     }

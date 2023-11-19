@@ -4,9 +4,10 @@ constants.DATA_DIR = "../data";
 
 constants.RAW_DIR = constants.DATA_DIR+"/raw";
 constants.DATASET_DIR = constants.DATA_DIR+"/dataset";
-constants.IMG_DIR = constants.DATA_DIR+"/images";
+constants.IMG_DIR = constants.DATASET_DIR+"/images";
 
-constants.OUTSOURCE_DIR = constants.RAW_DIR+"/outsource/source";
+constants.ROW_OUTSOURCE_DIR = constants.RAW_DIR+"/outsource/source";
+constants.TRANS_OUTSOURCE_DIR = constants.RAW_DIR+"/outsource";
 constants.INSOURCE_DIR = constants.RAW_DIR+"/insource";
 constants.SAMPLES_DIR = constants.DATASET_DIR+"/samples";
 constants.JOSN_DIR = constants.DATASET_DIR+"/json";

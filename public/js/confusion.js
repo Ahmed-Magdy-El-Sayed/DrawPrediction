@@ -42,8 +42,8 @@ for (const realLabel in matrix) {
         const cellVal = matrix[realLabel][predLabel]
         if(j == 2)
             confusionMatrix.innerHTML+=` 
-                <span class="row-${realLabel.split(" ").join("-")}" style="grid-row-start: ${i}; grid-column-start: 2">${realLabel}</span> 
-                <span class="column-${realLabel.split(" ").join("-")}" style="grid-row-start: 2; grid-column-start: ${i}">${realLabel}</span> 
+                <h3 class="row-${realLabel.split(" ").join("-")}" style="margin: 0; grid-row-start: ${i}; grid-column-start: 2">${realLabel}</h3> 
+                <h3 class="column-${realLabel.split(" ").join("-")}" style="margin: 0; grid-row-start: 2; grid-column-start: ${i}">${realLabel}</h3> 
             `
         const a = (cellVal-mainMatVal) / (maxMatVal-mainMatVal)
         confusionMatrix.innerHTML+=`
@@ -51,7 +51,7 @@ for (const realLabel in matrix) {
                 grid-row-start: ${i}; 
                 grid-column-start: ${j+1}; 
                 ${i==j+1? 
-                    `background-color: rgba(0, 0, 255, ${a})` :
+                    `background-color: rgba(0, 255, 0, ${a})` :
                     `background-color: rgba(255, 0, 0, ${a})` 
                 }
             ">${cellVal}</span>
@@ -69,8 +69,9 @@ for (const label in columnsSum) {
     const r = p >= 0? p *255 : 0
     const b = p <= 0? -p *255 : 0
 
-    confusionMatrix.querySelector(".column-"+label.split(" ").join("-")).style.color = `rgb(${r}, 0, ${b})`
-
     confusionMatrix.querySelector(".column-"+label.split(" ").join("-")).innerHTML+=`<br><span>${columnVal < 0? columnVal : "+"+columnVal}</span>`
+    confusionMatrix.querySelector(".column-"+label.split(" ").join("-")+" span").style.color = `rgb(${r}, 0, ${b})`
+    
     confusionMatrix.querySelector(".row-"+label.split(" ").join("-")).innerHTML+=`<br><span>${rowsSum[label]}</span>`
+    confusionMatrix.querySelector(".row-"+label.split(" ").join("-")+" span").style.color = `black`
 }

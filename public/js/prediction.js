@@ -1,21 +1,3 @@
-/* const groups = utilts.groupBy(samples, "session_id");
-for (const samples in groups) {
-    const div = document.createElement("div");
-    div.setAttribute("class","group")
-    div.innerHTML=`
-    <h3>${groups[samples][0].student_name}</h3>
-    `
-    groups[samples].forEach(sample => {
-        div.innerHTML+=`
-        <img id='${sample.id}' src='${constants.IMG_DIR}/${sample.id}.png'></img>
-        `
-    });
-    container.appendChild(div)
-} */
-/* for (const lable in drawsStyles) {
-    chartsColor.innerHTML+=`<h4 style="color:${drawsStyles[lable]}">${lable}</h4>\n`;
-} */
-
 const predicate = document.querySelector("button#predicate")
 predicate.onclick = ()=>{
     const paths = sketch.paths

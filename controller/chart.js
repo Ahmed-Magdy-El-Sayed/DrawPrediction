@@ -1,7 +1,6 @@
 const { ChartJSNodeCanvas } = require('chartjs-node-canvas');
 const {featuresName, samples} = require("../data/dataset/traningSamples");
 const { labelsStyles } = require('../common/utilts');
-const featuresCollector = require('../common/featuresCollector');
 
 const scatterDataset = [];
 var oldLabel;
@@ -11,7 +10,7 @@ for (const sample of samples) {
     else{ 
         scatterDataset.push({
             label: sample.label,
-            pointRadius: 1,
+            pointRadius: 2,
             pointBackgroundColor: labelsStyles[sample.label],
             data: [{x:(sample.points[0]), y:(sample.points[1])}]
         })

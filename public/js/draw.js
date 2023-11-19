@@ -29,7 +29,7 @@ function start(){
         data.label = checkedRadio.value
     sketchContainer.style.visibility = "visible";
     details.innerHTML=`
-    <h4 id="whatToDraw" style='display:inline-block;'>Draw a ${data.label}</h4>
+    <h3 id="whatToDraw" style='display:inline-block;'>Draw a ${data.label}</h3>
     <button class="blue" onclick="done()">Done</button>
     `
     startBtn.style.display = "none"
@@ -49,7 +49,7 @@ function done(){
     sketch.reset();
     sketchContainer.style.visibility = "hidden";
     details.innerHTML=`
-    <h4 id="whatToDraw" style="display:inline-block;">Thank You</h4>
+    <h3 id="whatToDraw" style="display:inline-block;">Thank You!</h3>
     `
     startBtn.innerHTML = "add another one"
     startBtn.style.display = null

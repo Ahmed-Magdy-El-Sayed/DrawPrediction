@@ -1,8 +1,10 @@
 extends ./module
 block variables 
-    -let pageTitle = "details"
+    -let pageTitle = "Analysis"
 block content 
     h2#accuracy= `Accuracy: ${testingResult.correct}/${testingResult.all} = ${((testingResult.correct/testingResult.all)*100).toFixed(2)}%`
+    .samples(style="display: flex; justify-content: center; flex-wrap: wrap")
+        button.blue(onclick="getTestedSamples(this)") Get Tested Samples 
     hr
     h2 The Samples Chart
     img#chart(src=chartImage)
@@ -11,4 +13,5 @@ block content
     #confusionMatrix(data-matrix = matrix)
     
 block js 
-    script(src="/js/details.js") 
+    script(src="/js/confusion.js")
+    script(src="/js/analysis.js")

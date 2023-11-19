@@ -58,7 +58,7 @@ button{
 #sketchContainer{
     margin-bottom: 10px;
 }
-#sketchContainer button.undo{
+#sketchContainer .options{
     display: block;
     margin: auto;
     margin-bottom: 10px;
