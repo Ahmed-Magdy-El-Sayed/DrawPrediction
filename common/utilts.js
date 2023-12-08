@@ -1,12 +1,18 @@
+const NeuralNetwork = require("./neuralNetwork");
+
 const utilts = {}
 
 utilts.printProgress=(count, max)=>{
     process.stdout.clearLine();
-    if(count !== max)
-        process.stdout.cursorTo(0);
+    process.stdout.cursorTo(0);
     process.stdout.write(`${count}/${max} (${(count*100/max).toFixed(2)}%)`);
+    if(count === max)
+        process.stdout.write("\n")
 }
-utilts.labels = ["airplane", "alarm clock", "apple", "bicycle", "car", "tree"]
+utilts.labels = ["airplane", "alarm clock", "apple", "bicycle", "car", "tree"];
+// utilts.features = ["Width", "Height", "Elongation", "Roundness", "Complexity"];
+utilts.features = new Array(400).fill(" ");
+
 utilts.labelsStyles={
     "airplane":"blue",
     "alarm clock":"deepskyblue",
@@ -57,12 +63,11 @@ utilts.repetitionNum= (samples, indexs)=>{
 }
 
 utilts.distance=(p1, p2)=>{
-    return Math.round(
-        Math.sqrt(
-            (p1[0]*0.8-p2[0])**2
-            +(p1[1]*0.8-p2[1])**2
-        )
-    )
+    let sqDist = 0;
+    p1.forEach((axis, i)=>{
+        sqDist += (p1[i] - p2[i])**2
+    })
+    return Math.sqrt( sqDist )
 }
 
 utilts.getNearest=(loc, objArray, k=1)=>{
@@ -73,19 +78,30 @@ utilts.getNearest=(loc, objArray, k=1)=>{
     const indices = sordted.map(obj=>obj.i);
     return indices.slice(0,k);
 }
+let network;
+utilts.classify = {
+    KNN: (point, samples, k=1)=>{
+        const indices = utilts.getNearest(point, samples, k)// indices of the nearest drawings
+        const labels = indices.map(i=>samples[i].label);// labels of the nearest drawings
 
-utilts.classify = (points, samples, k=1)=>{
-    const indices = utilts.getNearest(points, samples, k)// indices of the nearest drawings
-    const labels = indices.map(i=>samples[i].label);// labels of the nearest drawings
+        let counts = {};// the number of repeating the labels
+        for (const label of labels) {
+            counts[label] = counts[label]? counts[label]+1 :1
+        }
+        const max = Math.max(...Object.values(counts))// the heighest repeated drawing
+        // console.log(labels, nearestLabel)
 
-    let counts = {};// the number of repeating the labels
-    for (const label of labels) {
-        counts[label] = counts[label]? counts[label]+1 :1
+        return labels.find(l=>counts[l] = max)
+    },
+    NN: (point, setNetwork = null) =>{
+        if(!network && !setNetwork){
+            network = require("../ml/NNModel").network
+        }
+        const outputs = NeuralNetwork.feedForword(point, network? network:setNetwork)
+        const i = outputs.indexOf( Math.max(...outputs) );
+        // console.log(outputs)
+        return utilts.labels[i]
     }
-    const Max = Math.max(...Object.values(counts))// the heighest repeated drawing
-    // console.log(labels, nearestLabel)
-
-    return labels.find(l=>counts[l]==Max)
 }
 
 module.exports = utilts;

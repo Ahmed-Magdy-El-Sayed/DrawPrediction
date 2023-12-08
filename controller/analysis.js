@@ -5,7 +5,12 @@ testingSamples = testingSamples.map(({key_id, label, predicted})=>{return {key_i
 
 module.exports = {
     getAnalysisPage: async (req, res)=>{
-        res.render("analysis", {testingResult: analysis.testingResult, chartImage: analysis.chartImage, matrix: analysis.confusionMatrix})
+        res.render("analysis", {
+            testingResult: analysis.testingResultANN, 
+            chartImage: analysis.chartImage, 
+            matrixOld: analysis.confusionMatrixKNN,
+            matrix: analysis.confusionMatrixANN
+        })
     },
     getTestedSamples: (req,res)=>{
         res.status(200).json(testingSamples)

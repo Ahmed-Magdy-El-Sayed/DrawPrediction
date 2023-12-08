@@ -10,12 +10,9 @@ module.exports = {
     },
     predicateDraw: (req, res)=>{
         const {paths} = req.body
-        const point =[
-            featuresCollector.getNewWidth(paths),
-            featuresCollector.getNewHeight(paths)
-        ]
+        const point = featuresCollector.getWidthHeight(paths)
         
-        const nearestLabel = classify(point, samples, 10)
+        const nearestLabel = classify.KNN(point, samples, 10)
 
         res.json({
             predictedLabel: nearestLabel
@@ -23,9 +20,10 @@ module.exports = {
     }, 
     getChart: async(req, res)=>{
         const {paths} = req.body;
+        const pointArr = featuresCollector.getWidthHeight(paths);
         const point ={
-            x: featuresCollector.getNewWidth(paths),
-            y: featuresCollector.getNewHeight(paths)
+            x: pointArr[0],
+            y: pointArr[1]
         }
         res.json({chartImage: await createChartImage(500, 500, point)})
     }

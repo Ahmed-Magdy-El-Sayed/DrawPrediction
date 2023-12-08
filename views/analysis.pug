@@ -9,8 +9,10 @@ block content
     h2 The Samples Chart
     img#chart(src=chartImage)
     hr
+    h2 The Confusion Matrix Old
+    #MatrixContainerOld(data-matrix = matrixOld)
     h2 The Confusion Matrix 
-    #confusionMatrix(data-matrix = matrix)
+    #MatrixContainer(data-matrix = matrix)
     
 block js 
     script(src="/js/confusion.js")

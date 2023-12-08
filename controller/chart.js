@@ -6,13 +6,13 @@ const scatterDataset = [];
 var oldLabel;
 for (const sample of samples) {
     if(oldLabel == sample.label)
-        scatterDataset[scatterDataset.length-1].data.push({x:sample.points[0], y:sample.points[1]})
+        scatterDataset[scatterDataset.length-1].data.push({x:sample.point[0], y:sample.point[1]})
     else{ 
         scatterDataset.push({
             label: sample.label,
             pointRadius: 2,
             pointBackgroundColor: labelsStyles[sample.label],
-            data: [{x:(sample.points[0]), y:(sample.points[1])}]
+            data: [{x:(sample.point[0]), y:(sample.point[1])}]
         })
         oldLabel = sample.label
     }
@@ -30,7 +30,7 @@ module.exports = async (width, height, newPoint)=>{
                 data: [newPoint]
             })
     }
-    console.log("start creating the image")
+    console.log("start creating the image...")
     const configuration = {
         type: 'scatter',
         data: {
@@ -48,6 +48,6 @@ module.exports = async (width, height, newPoint)=>{
         }
     }
     const dataUrl = await canvasRenderService.renderToDataURL(configuration);
-    console.log("creating Image done")
+    console.log("creating Image done!")
     return dataUrl;
 }
