@@ -64,13 +64,13 @@ let testingResult = {correct: 0, wrong: 0, all: testingSamples.length}
 const analyis= async ()=>{
     // testing the model
     console.log("testing model...")
-    traningSamples.forEach(sample => {
+    testingSamples.forEach(sample => {
         const pLabel = classify.NN(sample.point)
         if(pLabel == sample.label)
             testingResult.correct++
         else
             testingResult.wrong++ 
-            
+        
         sample.predicted = pLabel
     });
     console.log(testingResult.correct + "/" + testingResult.all, testingResult.correct*100 / testingResult.all + "%" )
@@ -154,36 +154,40 @@ const updateTraningTestingSamples = ()=>{
     fs.appendFileSync(path.join(__dirname, constants.TESTING_SAMPLES), '}')
     console.log("updating done!")
 }
-let test = true;
-const upgradeNetwork = (tries = 1)=>{
-    let bestNetwork ;
-    let bestAccuracy = 0;
-    let updated = false
+
+const traningNetwork = (tries = 5)=>{
+    // let bestNetwork ;
+    // let bestAccuracy = 0;
+    // let updated = false
     let network
     const labelsCount = labels.length;
     if(fs.existsSync(path.join(__dirname, "..", "ml", "NNModel.js"))){
         const model = require("./NNModel");
         network = model.network;
-        bestAccuracy = model.accuracy
+        // bestAccuracy = model.accuracy
     }else
-        network = new NeuralNetwork([features.length, 10, 10, labelsCount]);
-
+        network = new NeuralNetwork([features.length, 100, 100, labelsCount]);
+    
+    let accuracy 
     for(let t = 1; t <= tries; t++){
         let correct = 0;
         let all = 0;
-        traningSamples.forEach(sample => {
-            const pLabel = classify.NN(sample.point, network)
+        let SCount = 0;
+        for(let SType = 0; SCount < 1000; SType++){
+            const sample = traningSamples[SType*1000+SCount];
+            const pLabel = classify.NN(sample.point, network) // forword propagation
             if(pLabel == sample.label)
                 correct++
-            
+            // calc lose in weights & biases
             const WsUpdate = {};
             const BsUpdate = {};
+            const LastOutputs = network.levels.slice(-1)[0].outputs
+            
             for(let i = 0; i < labelsCount; i++){
                 const LastOutputI = labels.indexOf(sample.label)
-                const LastOutput = network.levels.slice(-1)[0].outputs[i]
-                const dErr = 2 * (LastOutput - (LastOutputI == i? 1 : 0))
-                const dLastAct = 1 - Math.tanh(LastOutput)**2
+                const dErr_dAct = LastOutputs[i] - (LastOutputI == i? 1 : 0)
                 const levelsCount = network.levels.length
+                // console.log(dErr_dAct)
                 for(let j = levelsCount-1; j >= 0; j--){
                     const level = network.levels[j];
                     const middelLevels = (levelsCount-1) - j;
@@ -206,10 +210,11 @@ const upgradeNetwork = (tries = 1)=>{
                                     dLs *= network.levels[j+m].weights[l][i]
                                 else
                                     dLs *= network.levels[j+m].weights[l][l];
-                                dLs *= (1- Math.tanh(network.levels[j+m].inputs[l])**2)
+                                dLs *= (1- Math.tanh(network.levels[j+m].inputs[l])**2) // tanh derivative
                             }
-                            const dEW = parseFloat(dErr*dLastAct*dLs*level.inputs[k])
-                            const dEB = parseFloat(dErr*dLastAct*dLs)
+                            
+                            const dEW = parseFloat(dErr_dAct*dLs*level.inputs[k])
+                            const dEB = parseFloat(dErr_dAct*dLs)
                             if(i == 0){
                                 WsUpdate[j][WsUpdate[j].length-1].push(dEW)
                                 if(k == inputsCount-1)
@@ -222,38 +227,42 @@ const upgradeNetwork = (tries = 1)=>{
                         }
                     }
                 }
-                
+                // update weights & biases
                 for(let i = levelsCount-1; i >= 0; i--){
                     const level = network.levels[i];
                     const inputsCount = level.inputs.length
                     for(let j = inputsCount-1; j >=0; j--){
                         const outputsCount = level.outputs.length
                         for(let k = outputsCount-1; k >=0; k--){
-                            level.weights[j][k] -= 0.1*(WsUpdate[i][inputsCount-1 -j][outputsCount-1 -k]/labelsCount)
+                            level.weights[j][k] -= parseFloat(0.001*(WsUpdate[i][inputsCount-1 -j][outputsCount-1 -k]/labelsCount))
                             if(j == inputsCount-1)
-                                level.biases[k] -= 0.1*(BsUpdate[i][outputsCount-1 -k]/labelsCount)
+                                level.biases[k] -= parseFloat(0.001*(BsUpdate[i][outputsCount-1 -k]/labelsCount))
                         }
                     }
                 }
-                
             }
             all++
-        });
-        let accuracy = correct / all
-        if(accuracy >= bestAccuracy){
+            if(SType == 5){
+                SType = -1
+                SCount++
+            }
+        };
+        accuracy = correct / all
+        /* if(accuracy >= bestAccuracy || true){
             updated = true
             bestAccuracy = accuracy
             bestNetwork = network
-        }
+        } */
         printProgress(t, tries)
-        console.log(accuracy)
+        console.log(accuracy*100 + "%")
     }
-    if(updated)
+    // if(updated)
         fs.writeFileSync(path.join(__dirname, "..", "ml", "NNModel.js"), `module.exports = {
-            network:${JSON.stringify(bestNetwork)},
-            accuracy:${String(bestAccuracy)}
+            network:${JSON.stringify(network)},
+            accuracy:${String(accuracy)}
         }`)
-    console.log(bestAccuracy*100 + "%" )
+    analyis()
+    // console.log(bestAccuracy*100 + "%")
 }
 /* 
 const backwordPropagation = ()=>{
@@ -292,5 +301,4 @@ const backwordPropagation = ()=>{
 } */
 // createTraningTestingSamples()
 // updateTraningTestingSamples()
-analyis()
-// upgradeNetwork()
+traningNetwork(2)
