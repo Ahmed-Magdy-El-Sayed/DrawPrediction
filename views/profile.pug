@@ -1,0 +1,25 @@
+extends ./module
+block variables
+    - var pageTitle = 'profile'
+block linkCSS 
+    link(rel="stylesheet", href="/css/profile.css")
+block content 
+    .container
+        .user-details
+            img.img-icon(src=user.img, alt="The user Image")
+            h1.m-0.mt-3= user.name
+        .drawings
+            if(drawings[0] && String(user._id)==drawings[0].authorId)
+                each drawing in drawings 
+                    .drawing(onclick=`editDrawing("${drawing._id}")`)
+                        img(src=drawing.img, alt="", srcset="")
+                        h4= drawing.name 
+                        p= new Date(parseInt(drawing.timestamp)).toLocaleString("en")
+            else
+                each drawing in drawings 
+                    .drawing
+                        img(src=drawing.img, alt="", srcset="")
+                        h4.name= drawing.name 
+                        p.date= new Date(parseInt(drawing.timestamp)).toLocaleString("en")
+block js 
+    script(src="/js/profile.js") 

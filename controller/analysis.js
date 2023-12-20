@@ -6,8 +6,8 @@ testingSamples = testingSamples.map(({key_id, label, predicted})=>{return {key_i
 module.exports = {
     getAnalysisPage: async (req, res)=>{
         res.render("analysis", {
+            user: req.session.user,
             testingResult: analysis.testingResultANN, 
-            chartImage: analysis.chartImage, 
             matrixOld: analysis.confusionMatrixKNN,
             matrix: analysis.confusionMatrixANN
         })

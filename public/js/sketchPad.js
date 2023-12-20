@@ -112,6 +112,11 @@ class SketchPad{
         this.paths=[];
         this.#reDraw();
     }
+    addDraw(paths){
+        this.paths = paths;
+        this.#reDraw();
+        document.querySelector("button.undo").disabled = false
+    }
     #reDraw(){
         this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
         this.#paths(this.ctx,this.paths);

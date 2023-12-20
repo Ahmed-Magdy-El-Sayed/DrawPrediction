@@ -6,15 +6,18 @@ block linkCSS
     link(rel="stylesheet", href="/css/prediction.css")
 
 block content 
-    #drawsLables(style="display:none")
-    #chartsColor
-    #sketchContainer
-    button#predicate.blue Predicate
-    button#makeChart.blue Make Chart
-    h3#notify
+    .options
+        label(for="drawingName") name: 
+        input#drawingInputName(type="text", name="name" value=drawing? drawing.name : new Date().getTime())
+        button.save.blue(onclick="save()") save
+        if(user)
+            input#drawingInputId(type="hidden", value=drawing? drawing._id : "")
+        button.download.blue(onclick="download(this.dataset.label)") Download
+    hr
+    #sketchContainer(data-drawing=drawing)
+    button#suggest.blue Suggest
     h2#label
-    img#chart
-    #container
+    #suggestsContainer
 
 block js 
     script(src="/js/sketchPad.js") 

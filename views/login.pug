@@ -1,0 +1,18 @@
+extends ./module
+block variables
+    -let pageTitle = 'Login'
+block content
+    .container
+        h1 Login
+        form(class='login', action="/login", method='post')
+            input(type='name', name='nameOrEmail', placeholder='Enter your name or email', required)
+            br
+            input(type='password', name='password', placeholder='Enter password', required)
+            br
+            button.submit.blue(type='submit') submit
+        .login-option
+            span.text-center do not have account?
+            | 
+            a.text-decoration(href='/signup') signup
+            if(error)
+                p= error

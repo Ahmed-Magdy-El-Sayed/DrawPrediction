@@ -1,3 +1,9 @@
+input[type="radio"]{
+    width: auto
+}
+input[type="radio"] + span{
+    margin-right: 20px;
+}
 #sketchPadContainer{
     visibility: hidden;
 }

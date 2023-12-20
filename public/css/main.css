@@ -14,11 +14,11 @@ body{
     margin-bottom: 20px;
     background-color: #333;
 }
-.navbar a{
+a{
     text-decoration: none;
     color: white;
 }
-.navbar ul{
+.navbar .links{
     list-style: none;
     display: flex;
     gap: 20px;
@@ -65,4 +65,74 @@ button{
 }
 img{
     background-color: white;
+}
+
+.img-icon{
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+input {
+    width: 300px;
+    padding: 8px 10px;
+    border-radius: 20px;
+    border: none;
+    margin-bottom: 10px;
+}
+
+.account-info{
+    position: relative;
+}
+
+.account-info img, .account-info .profile-link{
+    cursor: pointer;
+}
+
+.account-info .menu {
+    position: absolute;
+    right: 0;
+    list-style: none;
+    width: 200px;
+    background-color: white;
+    padding: 20px 0;
+    margin: 0;
+    font-size: 17px;
+    border-radius: 20px;
+}
+
+.account-info .menu li:not(:first-child){
+    margin-bottom: 10px;
+}
+
+.account-info .menu h3{
+    margin: 0;
+    display: inline;
+}
+
+.account-info .menu .logout{
+    color: firebrick;
+    cursor: pointer;
+}
+.alert-success, .alert-faild{
+    margin: 0;
+    padding: 10px 0;
+    color: white;
+    position: relative;
+}
+.alert-success{
+    background-color: forestgreen;
+}
+.alert-faild{
+    background-color: firebrick;
+}
+.alert-close{
+    background-color: white;
+    color: firebrick;
+    padding: 0 4px;
+    border-radius: 5px;
+    position: absolute;
+    right: 20px;
+    cursor: pointer;
 }

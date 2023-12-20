@@ -87,8 +87,8 @@ featuresCollector.getPixels = (paths, size = 500, expand = true) =>{
     return ctx.getImageData(0, 0, size, size).data.filter((p, i)=>i % 4 === 3)
 }
 
-featuresCollector.getComplexity = paths=>{
-    return featuresCollector.getPixels(paths).filter(a=> a!=0).length
+featuresCollector.getComplexity = pixels=>{
+    return pixels.filter(a=> a!=0).length
 }
 
 module.exports = featuresCollector;

@@ -4,10 +4,10 @@ const fs = require("fs")
 const constants = require("../common/constants")
 
 module.exports = {
-    getDrawPage: (req,res)=>{
-        res.render("draw", {labels: labels})
+    getDrawingPage: (req, res)=>{
+        res.render("draw", {user: req.session.user, labels: labels})
     },
-    saveDraw: (req, res)=>{
+    saveToRawData: (req, res)=>{
         fs.appendFileSync(path.join(__dirname, constants.INSOURCE_DIR, req.body.label+".ndjson"), JSON.stringify(req.body)+"\n")
         res.status(201).end()
     }

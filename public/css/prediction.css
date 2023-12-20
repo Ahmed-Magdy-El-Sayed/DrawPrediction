@@ -1,25 +1,30 @@
-.group {
+#suggests {
     display: flex;
     align-items: center;
 }
-.group img {
-    width: 50px;
-    border: 1px solid black;
+#suggestsContainer{
+    height: 200px;
+    overflow-y: auto;
 }
-.group h3{
-    width: 10%;
-    word-wrap: break-word;
+
+.options{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-#chartContainer{
-    position: fixed;
-    right: 0;
-    top: 50vh;
+
+.options label{
+    margin-right: 10px;
 }
-#chartsColor{
-    width: 100px;
-    background-color: skyblue;
-    text-align: center;
-    position: absolute;
-    right: 0;
-    top: 0;
+
+#drawingInputName{
+    background-color: transparent;
+    border: 1px white solid;
+    width: auto;
+    margin: 0;
+    outline: none;
+}
+#drawingInputName:focus{
+    background-color: white;
+    border-color: black;
 }

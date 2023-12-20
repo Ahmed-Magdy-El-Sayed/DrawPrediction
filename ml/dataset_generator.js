@@ -3,7 +3,7 @@ const path = require("path");
 const constants = require("../common/constants");
 const utilts =require("../common/utilts")
 const ndjson = require('ndjson');
-const { getWidth, getHeight} = require("../common/featuresCollector")
+const featuresCollector = require("../common/featuresCollector")
 
 function parseSimplifiedDrawings(label, sourcePath, destPath, callback) {
     console.log("converting "+label+"...")
@@ -74,11 +74,11 @@ const convertPaths = ()=>{
                 })
                 obj.drawing= dPaths 
                 
-                const point =[
+                const dimension =[
                     parseFloat(getWidth(dPaths).toFixed(3)),
                     parseFloat(getHeight(dPaths).toFixed(3))
                 ]
-                if (Math.max(...point) > 500)
+                if (Math.max(...dimension) > 500)
                     return null;
                 addedObjs[label]++
                 // fs.appendFileSync(path.join(__dirname, constants.RAW_DIR, label+'.json'), ",")
@@ -102,10 +102,14 @@ const createSamples = ()=>{
             (err, obj)=>{
                 if(err) return console.error(err);
                 // calc the width and height
-                obj.point=[
-                    parseFloat(getWidth(obj.drawing).toFixed(3)),
-                    parseFloat(getHeight(obj.drawing).toFixed(3))
+                obj.KNNPoint=[
+                    parseFloat(featuresCollector.getWidthAxis(obj.drawing).toFixed(3)),
+                    parseFloat(featuresCollector.getHeightAxis(obj.drawing).toFixed(3)),
+                    featuresCollector.getElongation(obj.drawing),
+                    featuresCollector.getRoundness(obj.drawing),
+                    featuresCollector.getComplexity(obj.drawing)
                 ]
+                obj.ANNPoint= Object.values(featuresCollector.getPixels(obj.drawing, 20))
                 //add new line if there is an obj in the file
                 labelsOfInseartedObj.includes(label)? 
                     fs.appendFileSync(path.join(__dirname,constants.SAMPLES_DIR, label+"-samples.json"), ",")

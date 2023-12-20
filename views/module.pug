@@ -11,13 +11,31 @@ html
     body
         div.navbar
             a.logo(href="/") DrawPrediction
-            ul(class="navbar-nav ms-auto me-auto")
+            ul.links
                 li
                     a(href = "/") Draw
                 li
                     a(href = "/predicate") Predicate
                 li
                     a(href = "/analysis") Analysis
+                if(!user)
+                    li
+                        a(href = "/login") Login
+                    li
+                        a(href = "/signup") Signup
+            if(user)
+                .account-info
+                    img.img-icon(src=user.img, onclick="toggleMenu()", alt="")
+                    ul.menu(style="display:none;")
+                        li Hello  
+                            h3= user.name
+                        hr
+                        li: .profile-link(onclick="openProfile('"+user._id+"')") Profile
+                        li: .logout(onclick="logout()") Logout
+                        li
+                            span Delete The Account:
+                            button.red(onclick="deleteAccount()") Delete
         block content
-        
+        if(user)
+            script(src="/js/main.js") 
         block js
