@@ -1,5 +1,7 @@
 .container{
     display: flex;
+    min-height: 100vh;
+    padding-top: 80px;
 }
 .user-details{
     width: 25%;

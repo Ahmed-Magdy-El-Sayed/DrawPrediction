@@ -56,15 +56,27 @@ class SketchPad{
         options.classList.add("options")
 
         const undoBtn = document.createElement("button");
-        undoBtn.innerHTML="UNDO";
+        undoBtn.innerHTML=`
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 13" width="20px" stroke-linecap="round" stroke-linejoin="round">
+            <polyline class="undo" fill="none" stroke="currentColor" points="4 2,1 5,4 8"></polyline>
+            <polyline class="undo" fill="none" stroke="currentColor" points="1 5, 12 5, 12 12, 5 12"></polyline>
+        </svg>
+        `;
         undoBtn.setAttribute("class","undo red")
+        undoBtn.style.padding= "5px 10px"
         undoBtn.disabled = true;
         options.appendChild(undoBtn)
 
 
         const redoBtn = document.createElement("button");
-        redoBtn.innerHTML="REDO";
+        redoBtn.innerHTML=`
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 13" width="20px" stroke-linecap="round" stroke-linejoin="round">
+            <polyline class="undo" fill="none" stroke="currentColor" points="9 2,12 5,9 8"></polyline>
+            <polyline class="undo" fill="none" stroke="currentColor" points="11 5, 1 5, 1 12, 8 12"></polyline>
+        </svg>
+        `;
         redoBtn.setAttribute("class","redo blue")
+        redoBtn.style.padding= "5px 10px"
         redoBtn.disabled = true;
         options.appendChild(redoBtn)
 

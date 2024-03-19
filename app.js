@@ -17,7 +17,7 @@ app.use(session({
     store:STORE
 }))
 
-const { getDrawingPage, saveToRawData} = require('./controller/draw')
+const { getHomePage, getDrawingPage, saveToRawData} = require('./controller/draw')
 const { getPredicatePage, predicateDrawing, suggestDrawings, saveDrawing, openDrawing} = require('./controller/predicate')
 const { getAnalysisPage, getTestedSamples } = require('./controller/analysis')
 const { isLoggedOut, isLoggedIn } = require('./controller/middelwares')
@@ -32,14 +32,15 @@ app.use(express.static('./profiles-image'))
 app.set("view engine", "pug")
 app.set("views", "./views")
 
-app.get('/', getDrawingPage)
+app.get('/', getHomePage)
+app.get('/contribute', getDrawingPage)
 app.get('/predicate', getPredicatePage)
 app.post('/predicate/predict', predicateDrawing)
 app.post('/predicate/suggest', suggestDrawings)
 app.post('/predicate/save', isLoggedIn, saveDrawing)
 app.get('/analysis', getAnalysisPage)
 app.get('/analysis/samples', getTestedSamples)
-app.post('/drawing/save', saveToRawData)
+app.post('/contribute/save', saveToRawData)
 
 app.get('/signup', isLoggedOut, getSignup)
 app.post('/signup', postUser)
@@ -47,11 +48,11 @@ app.post('/signup', postUser)
 app.get('/login', isLoggedOut, getLogin)
 app.post('/login', checkUser)
 app.get('/profile/:id', getProfile)
-app.post('/profile/drawing', openDrawing)
+app.post('/profile/drawing', openDrawing) 
 
 app.get('/logout', logout)
 
-app.all('*',(req,res)=>{
-    res.status(404).render("error", {error: "Page not found!"});
+app.all('*',(req, res)=>{
+    res.status(404).render("error", {error: "Page not found!", user: req.session.user});
 })
 app.listen(PORT,()=>{console.log('server running on port '+PORT)})

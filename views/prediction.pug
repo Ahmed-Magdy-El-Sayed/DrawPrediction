@@ -6,16 +6,21 @@ block linkCSS
     link(rel="stylesheet", href="/css/prediction.css")
 
 block content 
-    .options
-        label(for="drawingName") name: 
-        input#drawingInputName(type="text", name="name" value=drawing? drawing.name : new Date().getTime())
-        button.save.blue(onclick="save()") save
-        if(user)
-            input#drawingInputId(type="hidden", value=drawing? drawing._id : "")
-        button.download.blue(onclick="download(this.dataset.label)") Download
-    hr
+    .details
+        .name
+            label(for="drawingName") name: 
+            input#drawingInputName(type="text", name="name" value=drawing? drawing.name : new Date().getTime())
+        .options
+            a.save(onclick="save()") save
+            if(user)
+                input#drawingInputId(type="hidden", value=drawing? drawing._id : "")
+            a.download(onclick="download()") 
+                svg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 13" width="30px" stroke-linecap="round" stroke-linejoin="round")
+                    polyline(class="undo" fill="none" stroke="currentColor" points="4 8, 6 10, 8 8")
+                    polyline(class="undo" fill="none" stroke="currentColor" points="6 10, 6 3")
+                    polyline(class="undo" fill="none" stroke="currentColor" points="1 10, 1 12, 11 12, 11 10")
     #sketchContainer(data-drawing=drawing)
-    button#suggest.blue Suggest
+    button#suggest.blue Predicate
     h2#label
     #suggestsContainer
 

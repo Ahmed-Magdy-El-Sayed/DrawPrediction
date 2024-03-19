@@ -36,9 +36,9 @@ const checkUser = async (req, res) =>{//log in the user
             loginErr = account;
             res.redirect(301,'/account/login');
         }else {// if get account success
-            const drawings = await getDrawings(account._id);
             req.session.user = account
-            res.render('profile',{user: account, drawings});
+            // res.render('profile',{user: account, drawings});
+            res.redirect(301,'/profile/'+account._id);
         }
     }).catch(err=>{
         console.error(err)
@@ -48,9 +48,12 @@ const checkUser = async (req, res) =>{//log in the user
 /* end the functions for login page */
 
 /* start the function of the main bar */
-const logout =(req,res)=>{
+const logout =(req, res)=>{
     req.session.destroy(err=>{
-        if(err) return console.error(err) 
+        if(err){ 
+            console.error(err)
+            return res.status(500).render("error", {error: "Failed to logout"})
+        } 
     });
     res.status(301).redirect('/login')
 }

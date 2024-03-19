@@ -1,0 +1,8 @@
+.container{
+    padding-top: 80px;
+}
+.testing-result{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}

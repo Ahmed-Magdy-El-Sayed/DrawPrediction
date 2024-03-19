@@ -1,14 +1,24 @@
 extends ./module
 block variables 
     -let pageTitle = "Analysis"
+block linkCSS 
+    link(rel="stylesheet", href="/css/analysis.css")
 block content 
-    h2#accuracy= `Accuracy: ${testingResult.correct}/${testingResult.all} = ${((testingResult.correct/testingResult.all)*100).toFixed(2)}%`
-    .samples(style="display: flex; justify-content: center; flex-wrap: wrap")
+    .testing-result
+        h2 Total Prediction Result:
+        .all
+            h3 All
+            p= testingResult.all
+        .currect
+            h3 Correct
+            p= testingResult.correct
+        .accuracy
+            h3 Accuracy
+            p= (testingResult.correct/testingResult.all *100).toFixed(2)+"%"
+    .samples(style="display: flex; justify-content: center; flex-wrap: wrap; overflow: auto; max-height: 40vh;")
         button.blue(onclick="getTestedSamples(this)") Get Tested Samples 
     hr
-    h2 The Confusion Matrix Old
-    #MatrixContainerOld(data-matrix = matrixOld)
-    h2 The Confusion Matrix 
+    h2 The ANN Confusion Matrix 
     #MatrixContainer(data-matrix = matrix)
     
 block js 

@@ -1,0 +1,32 @@
+extends ./module
+block variables
+    -let pageTitle = 'DrawPrediction'
+block linkCSS 
+    link(rel="stylesheet", href="/css/home.css")
+
+block content 
+    .landing
+        .layer 
+        .content
+            h1.title Unlock Your Creativity: 
+                br
+                .
+                    Draw, Predict, and Explore!
+            p.desc Welcome to our drawing prediction web app, where imagination meets technology. 
+                .
+                    Whether you're an artist, a designer, or simply curious, our platform empowers you to express 
+                .
+                    yourself through sketches and discover a world of similar creations.
+            a(href="/predicate").red Try Now!
+            a(href="/contribute").gray Contribute To Out Dataset!
+        .details 
+            .drawings-num
+                h3 Drawing Numbers
+                p= drawingsNum  
+            .accuracy
+                h3 Accuracy 
+                p= accuracy 
+            .accuracy
+                h3 Drawing Types
+                p= drawingTypes
+

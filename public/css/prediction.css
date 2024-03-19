@@ -7,24 +7,43 @@
     overflow-y: auto;
 }
 
-.options{
+.details{
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 }
 
-.options label{
+.details label{
     margin-right: 10px;
 }
 
+.container{
+    padding-top: 80px;
+}
 #drawingInputName{
     background-color: transparent;
-    border: 1px white solid;
-    width: auto;
+    width: 20vw;
     margin: 0;
     outline: none;
 }
 #drawingInputName:focus{
     background-color: white;
     border-color: black;
+}
+
+.details .options{
+    display: flex;
+    width: 100px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.details .options .save, .details .options .download{
+    color: black;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.details .options .save:hover, .details .options .download:hover{
+    color: dodgerblue
 }

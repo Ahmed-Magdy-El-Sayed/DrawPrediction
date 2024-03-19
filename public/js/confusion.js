@@ -10,7 +10,7 @@ const confusionMatrix = container=>{
         grid-template-rows: repeat(${matDim}, 1fr);
         width: 500px;
         height: 500px;
-        color: white;
+        color: #000000d1;;
         border: 1px solid;
     `
     container.innerHTML = `
@@ -43,8 +43,8 @@ const confusionMatrix = container=>{
             const cellVal = matrix[realLabel][predLabel]
             if(j == 2)
                 container.innerHTML+=` 
-                    <h3 class="row-${realLabel.split(" ").join("-")}" style="margin: 0; grid-row-start: ${i}; grid-column-start: 2">${realLabel}</h3> 
-                    <h3 class="column-${realLabel.split(" ").join("-")}" style="margin: 0; grid-row-start: 2; grid-column-start: ${i}">${realLabel}</h3> 
+                    <h4 class="row-${realLabel.split(" ").join("-")}" style="margin: 0; grid-row-start: ${i}; grid-column-start: 2">${realLabel}</h4> 
+                    <h4 class="column-${realLabel.split(" ").join("-")}" style="margin: 0; grid-row-start: 2; grid-column-start: ${i}">${realLabel}</h4> 
                 `
             const a = (cellVal-mainMatVal) / (maxMatVal-mainMatVal)
             container.innerHTML+=`
@@ -77,5 +77,3 @@ const confusionMatrix = container=>{
         container.querySelector(".row-"+label.split(" ").join("-")+" span").style.color = `black`
     }
 }
-confusionMatrix(MatrixContainerOld)
-confusionMatrix(MatrixContainer)

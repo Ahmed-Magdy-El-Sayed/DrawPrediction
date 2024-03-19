@@ -1,9 +1,0 @@
-.msg{
-    display: none;
-}
-.check{
-    width: auto;
-}
-input:invalid + .msg{
-    display: block;
-}

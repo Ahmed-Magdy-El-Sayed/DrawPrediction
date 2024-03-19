@@ -1,18 +1,12 @@
-const menu =document.querySelector(".account-info .menu")
-const toggleMenu = ()=>{
-    if(menu.style.display == "none")
-        menu.style.display = "block"
-    else
-        menu.style.display = "none"
+const MenuIcon = document.querySelector(".navbar .menu .icon")
+const links = document.querySelector(".navbar .menu ul")
+let isOpened = false
+MenuIcon.onclick = ()=>{
+    isOpened?
+        links.style.display = "none"
+    :
+        links.style.display = "block"
+
+    isOpened = !isOpened
 }
-const openProfile = userID=>{
-    location.href = "/profile/"+userID
-}
-const logout = ()=>{
-    if(confirm("Are you sure you want to logout?"))
-        location.href = "/logout"
-}
-const deleteAccount = ()=>{
-    if(confirm("Are you sure you want to delete the account?"))
-        location.href = "/logout"
-}
+

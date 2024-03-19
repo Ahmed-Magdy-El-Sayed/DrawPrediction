@@ -39,7 +39,7 @@ suggest.onclick = ()=>{
 const useSuggest = paths=>{
     sketch.addDraw(paths)
 }
-const download = label=>{
+const download = ()=>{
     const link = document.createElement("a")
     link.href = sketch.canvas.toDataURL()
     link.download = drawingInputName.value+"-drawing"
@@ -49,8 +49,13 @@ const download = label=>{
 }
 
 const save = ()=>{
-    if(!drawingInputId)
-        return alert("Create an account to save your draw")
+    if(!document.getElementById("drawingInputId"))
+        return document.querySelector(".navbar").insertAdjacentHTML("afterend", `
+                <h3 class="alert-info">
+                    Create account to save your drawing
+                    <span class="alert-close" onclick="this.parentElement.remove()">X</span>
+                </h3>
+            `)
     fetch("/predicate/save",{
         method:'post',
         headers:{'Content-Type':'application/json'},
@@ -60,34 +65,34 @@ const save = ()=>{
             img: sketch.canvas.toDataURL(), 
             paths: sketch.paths
         })
-    }).then(res=>{
+    }).then(res=>{console.log(res.status)
         if(res.status == 201){
             if(res.body)
                 _id = res.id
-            document.body.insertAdjacentHTML("afterbegin", `
+            document.body.insertAdjacentHTML("afterend", `
                 <h3 class="alert-success">
                     The drawing saved successfully 
                     <span class="alert-close" onclick="this.parentElement.remove()">X</span>
                 </h3>
             `)
-        }else if(res.status == 301)
-            document.body.insertAdjacentHTML("afterbegin", `
+        }else if(res.status == 406)
+            document.body.insertAdjacentHTML("afterend", `
                 <h3 class="alert-faild"> 
                     the name is already used 
                     <span class="alert-close" onclick="this.parentElement.remove()">X</span>
                 </h3>
             `)
-        else if(res.status == 401)
-            document.body.insertAdjacentHTML("afterbegin", `
-                <h3 class="alert-faild">
+        else if(res.status == 403)
+            document.body.insertAdjacentHTML("afterend", `
+                <h3 class="alert-info">
                     Create account to save your drawing
                     <span class="alert-close" onclick="this.parentElement.remove()">X</span>
                 </h3>
             `)
         else
-            document.body.insertAdjacentHTML("afterbegin", `
+            document.body.insertAdjacentHTML("afterend", `
                 <h3 class="alert-faild">
-                    Some thing went wrong
+                    Something went wrong
                     <span class="alert-close" onclick="this.parentElement.remove()">X</span>
                 </h3>
             `)

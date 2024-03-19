@@ -25,15 +25,11 @@ module.exports = {
         res.json(suggests)
     },
     saveDrawing: (req, res)=>{
-        if(!req.body.session.user){
-            res.status(401).end()
-            return null
-        }
         const isNew = req.body._id? false : true;
         if(isNew){
             delete req.body._id
             addDrawing({...req.body, authorId: req.session.user._id}).then(added=>{
-                if(!added) res.status(301).end()
+                if(!added) res.status(406).end()
                 else res.status(201).send(added._id)
             }).catch(err=>{
                 console.log(err)

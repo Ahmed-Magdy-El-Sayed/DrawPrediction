@@ -146,6 +146,7 @@ const traningNetwork = (tries = 5)=>{
             const pLabel = classify.NN(sample.ANNPoint, network) // forword propagation
             if(pLabel == sample.label)
                 correct++
+            // backword propagation
             // calc lose in weights & biases
             const WsUpdate = {};
             const BsUpdate = {};

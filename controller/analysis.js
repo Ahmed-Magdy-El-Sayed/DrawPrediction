@@ -8,7 +8,6 @@ module.exports = {
         res.render("analysis", {
             user: req.session.user,
             testingResult: analysis.testingResultANN, 
-            matrixOld: analysis.confusionMatrixKNN,
             matrix: analysis.confusionMatrixANN
         })
     },
