@@ -1,7 +1,7 @@
 const constants = require("../common/constants");
 const fs = require("fs");
 const path = require("path");
-const samples = require(constants.KNN_SAMPLES).samples
+const samples = require("../knn-samples/KNNSamples").samples
 const { distance } = require("../common/utilts");
 
 function logTransform(data, indexes) {
