@@ -70,7 +70,7 @@ const suggest = (drawing, k=5)=>{
     return ids.map(id=>{
         return {
             id,
-            paths: JSON.parse(fs.readFileSync(path.join(__dirname,constants.KNN_JSON_DIR, id+".json")))
+            paths: JSON.parse(fs.readFileSync(path.join(__dirname,"..", "knn-samples", "json", id+".json")))
         }
     });
 }
