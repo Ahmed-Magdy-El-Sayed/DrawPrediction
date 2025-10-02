@@ -13,8 +13,8 @@ const classify =  (point, networkParam = null) =>{
 const constants = require("../common/constants");
 const fs = require("fs");
 const path = require("path");
-const traningSamples = require("../data/dataset/traningSamples").samples;
-const testingSamples = require("../data/dataset/testingSamples").samples;
+const traningSamples = /* require("../data/dataset/traningSamples").samples */ {};
+const testingSamples = /* require("../data/dataset/testingSamples").samples */ {};
 const analysisObj = require("../controller/analysisResult");
 const testingResult = {correct: 0, wrong: 0, all: testingSamples.length}
 

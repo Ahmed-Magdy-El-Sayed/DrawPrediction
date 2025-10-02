@@ -33,8 +33,8 @@ const createTraningTestingSamples = ()=>{// separate the samples to training sam
     console.log("traning & testing samples collecting done!")
 }
 
-const traningSamples = require("../data/dataset/traningSamples").samples;
-const testingSamples = require("../data/dataset/testingSamples").samples;
+const traningSamples = /* require("../data/dataset/traningSamples").samples */ {};
+const testingSamples = /* require("../data/dataset/testingSamples").samples */ {};
 const featuresCollector = require("./featuresCollector");
 
 const extractSamplesFeatures = ()=>{ 
