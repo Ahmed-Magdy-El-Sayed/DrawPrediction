@@ -1,5 +1,5 @@
 Tech: Machine Learning (ANN, KNN), Node.js, PugJS, MongoDB
-Demo: (Add deployment link if available)
+Demo: https://draw-prediction.vercel.app/
 
 📖 Description
 
