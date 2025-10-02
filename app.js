@@ -32,7 +32,7 @@ app.use(express.static('./public'))
 // app.use(express.static('./knn-samples/images'))
 // app.use(express.static('./profiles-image'))
 app.set("view engine", "pug")
-app.set("views", "./views")
+app.set("views", __dirname+"/views")
 
 app.get('/', getHomePage)
 app.get('/contribute', getDrawingPage)

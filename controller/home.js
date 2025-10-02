@@ -4,7 +4,7 @@ const drawingsTypes = labels.length
 
 module.exports = {
     getHomePage:(req, res)=>{
-        res.render("home.pug", {
+        res.render("home", {
             user: req.session.user, 
             drawingsNum: all*2,
             accuracy: (correct/all*100).toFixed(2)+"%",
