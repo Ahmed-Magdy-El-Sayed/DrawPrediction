@@ -9,6 +9,9 @@ module.exports = cb=>{
             return cb()
             .then(resalt=>{
                 resalt? resolve(resalt) : resolve();
+            }).catch(err=>{
+                console.error(err);
+                reject()
             })
         })
         .catch(err=>{
