@@ -28,7 +28,7 @@ const { getSignup, postUser, getLogin, checkUser, getProfile, logout, deleteAcco
 app.use(express.json())
 app.use(express.text())
 app.use(express.urlencoded({extended:false}))
-app.use(express.static('./public'))
+app.use(express.static(__dirname+'/public'))
 // app.use(express.static('./knn-samples/images'))
 // app.use(express.static('./profiles-image'))
 app.set("view engine", "pug")
