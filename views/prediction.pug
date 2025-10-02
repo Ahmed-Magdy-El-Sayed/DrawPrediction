@@ -11,17 +11,21 @@ block content
             label(for="drawingName") name: 
             input#drawingInputName(type="text", name="name" value=drawing? drawing.name : new Date().getTime())
         .options
-            a.save(onclick="save()") save
+            a.save(onclick="save(this)") save
             if(user)
                 input#drawingInputId(type="hidden", value=drawing? drawing._id : "")
-            a.download(onclick="download()") 
+                if(drawing && drawing._id)
+                    button.delete.alert-close(onclick="deleteDrawing(this)") delete
+            a.download(onclick="downloadSketch()") 
                 svg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 13" width="30px" stroke-linecap="round" stroke-linejoin="round")
                     polyline(class="undo" fill="none" stroke="currentColor" points="4 8, 6 10, 8 8")
                     polyline(class="undo" fill="none" stroke="currentColor" points="6 10, 6 3")
                     polyline(class="undo" fill="none" stroke="currentColor" points="1 10, 1 12, 11 12, 11 10")
     #sketchContainer(data-drawing=drawing)
+    .note *The drawings that the model can predicate are Limited to airplane, alarm clock, apple, bicycle, car, tree.
     button#suggest.blue Predicate
     h2#label
+    .note(style="display: none;") *The suggested drawings are real drawings from the Quick, Draw! Dataset.
     #suggestsContainer
 
 block js 

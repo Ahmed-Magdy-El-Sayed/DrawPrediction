@@ -1,4 +1,4 @@
-const { createUser, authUser, deleteUser } = require('../model/users');
+const { createUser, authUser, getUserById, deleteUser } = require('../model/users');
 const { getDrawings } = require('../model/drawings');
 
 /* start the functions for signup page */
@@ -12,7 +12,7 @@ const postUser = (req,res) =>{//creat the account
         if(result)
             res.status(400).render('signup', {error: result}) 
         else
-            res.render('login')
+            res.redirect(301,'/login');
     }).catch(err=>{
         console.error(err)
         res.status(500).render('error',{error: "internal server error"});
@@ -34,7 +34,7 @@ const checkUser = async (req, res) =>{//log in the user
     authUser(user).then(async account=>{
         if(typeof account === 'string') {// if get account failed
             loginErr = account;
-            res.redirect(301,'/account/login');
+            res.redirect(301,'/login');
         }else {// if get account success
             req.session.user = account
             // res.render('profile',{user: account, drawings});
@@ -54,20 +54,20 @@ const logout =(req, res)=>{
             console.error(err)
             return res.status(500).render("error", {error: "Failed to logout"})
         } 
+        res.status(301).redirect('/login')
     });
-    res.status(301).redirect('/login')
 }
 
 const deleteAccount = (req, res)=>{// button in update profile option
     const user = req.session.user;
-    req.session.destroy(err=>{
+    req.session.destroy(async err=>{
         if(err){
             res.status(500).render("error",{user: req.session?.user, error: "internal server error"})
             return console.error(err)
         } 
-        deleteUser(user._id).then(deleted=>{
+        await deleteUser(user._id).then(deleted=>{
             if(deleted) 
-                res.redirect(301,"/")
+                res.status(301).redirect("/login")
             else 
                 res.status(400).render("error",{user: req.session?.user, error: "Account not found!"})
     }).catch(err=>{
@@ -82,8 +82,19 @@ const getProfile = async (req, res)=>{//load myContent page
     const profileUserID = req.params.id;
     if(!(profileUserID.match(/^[0-9a-fA-F]{24}$/)))
         return res.status(400).render('error', {user: req.session.user, error: "Bad Request! try again."})
+
+    const user = req.session.user? req.session.user : await getUserById(profileUserID).catch(err=>{
+        console.log(err);
+    });
+
+    if(!user)
+        return res.status(500).render("error",{user: req.session.user, error: "internal server error"});
+
     getDrawings(profileUserID).then(async drawings=>{
-        res.render('profile',{user: req.session.user, drawings})
+        if(req.session.user)
+            res.render('profile',{user: user, drawings})
+        else
+            res.render('profile',{profileOwner: user, drawings})
     }).catch(err=>{console.log(err);
         res.status(500).render("error",{user: req.session.user, error: "internal server error"})
     });

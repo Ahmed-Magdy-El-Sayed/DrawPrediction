@@ -34,7 +34,7 @@ class SketchPad{
                 this.#reDraw();
             }
         }
-        document.onmouseup= ()=>{
+        this.canvas.onmouseup= ()=>{
             this.isDrawing = false;
         }
 
@@ -45,6 +45,7 @@ class SketchPad{
             this.canvas.onmousedown(loc)
         }
         this.canvas.ontouchmove= e=>{
+            e.preventDefault()
             const loc = e.touches[0];
             this.canvas.onmousemove(loc);
         }
@@ -128,6 +129,12 @@ class SketchPad{
         this.paths = paths;
         this.#reDraw();
         document.querySelector("button.undo").disabled = false
+    }
+    clear(){
+        this.paths = [];
+        this.#reDraw();
+        document.querySelector("button.undo").disabled = true
+        document.querySelector("button.redo").disabled = true
     }
     #reDraw(){
         this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);

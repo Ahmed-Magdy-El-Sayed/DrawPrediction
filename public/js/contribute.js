@@ -13,20 +13,12 @@ function start(){
         location.reload()
         return null
     }
-    const checkedRadio = document.querySelector("#details input:checked")
-    if(!checkedRadio){
-        alert("you should define what you will draw frist")
+    const textInput = document.querySelector("#details input[type='text']")
+    if(!textInput.value){
+        alert("You should enter the draw name")
         return null
     }
-    if(checkedRadio.value == "others"){
-        const textInput = document.querySelector("#details input[type='text']")
-        if(!textInput.value){
-            alert("You should enter the draw name")
-            return null
-        }
-        data.label = textInput.value
-    }else
-        data.label = checkedRadio.value
+    data.label = textInput.value
     sketchContainer.style.display = "block";
     details.innerHTML=`
     <h3 id="whatToDraw" style='display:inline-block;'>Draw a ${data.label}</h3>

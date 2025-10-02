@@ -57,9 +57,20 @@ module.exports ={
             throw err
         }
     },
+    getUserById: async id=>{
+        try {
+            return dbConnect(async ()=>
+                await usersModel.findById(id, {password: 0})
+            )
+        } catch (err) {
+            throw err
+        }
+    },
     deleteUser: async id=>{
         try {
-            return await usersModel.findByIdAndDelete(id)
+            return dbConnect(async ()=>
+                await usersModel.findByIdAndDelete(id)
+            )
         } catch (err) {
             throw err
         }

@@ -12,7 +12,3 @@ const logout = ()=>{
     if(confirm("Are you sure you want to logout?"))
         location.href = "/logout"
 }
-const deleteAccount = ()=>{
-    if(confirm("Are you sure you want to delete the account?"))
-        location.href = "/logout"
-}

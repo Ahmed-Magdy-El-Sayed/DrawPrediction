@@ -1,5 +1,5 @@
 confusionMatrix(MatrixContainer)
-
+/* 
 function getTestedSamples(ele) {
     ele.innerHTML = "loading...";
     ele.disabled = true;
@@ -20,4 +20,4 @@ function getTestedSamples(ele) {
     .catch(err=>{
         console.error(err)
     })
-} 
+}  */

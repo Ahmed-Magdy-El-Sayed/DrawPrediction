@@ -16,6 +16,11 @@ constants.FEATURES_JS = constants.DATASET_DIR+"/features.js";
 constants.TRANING_SAMPLES = constants.DATASET_DIR+"/traningSamples.js";
 constants.TESTING_SAMPLES = constants.DATASET_DIR+"/testingSamples.js";
 
+constants.KNN_SAMPLES_DIR = "../knn-samples";
+constants.KNN_IMAGES_DIR = constants.KNN_SAMPLES_DIR+"/images";
+constants.KNN_JSON_DIR = constants.KNN_SAMPLES_DIR+"/json";
+constants.KNN_SAMPLES = constants.KNN_SAMPLES_DIR+"/KNNSamples.js";
+
 if(typeof module !== "undefined"){
     module.exports = constants;
 }

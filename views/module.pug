@@ -29,15 +29,15 @@ html
                         li
                             a(href = "/signup") Signup
             
-            if(user)
-                .account-info
-                    img.img-icon(src=user.img, onclick="toggleMenu()", alt="")
-                    ul.menu(style="display:none;")
-                        li Hello  
-                            h3= user.name
-                        hr
-                        li: .profile-link(onclick="openProfile('"+user._id+"')") Profile
-                        li: .logout(onclick="logout()") Logout
+                if(user)
+                    .account-info
+                        img.img-icon(src=user.img, onclick="toggleMenu()", alt="")
+                        ul.menu(style="display:none;")
+                            li Hello  
+                                h3= user.name
+                            hr
+                            li: .profile-link(onclick="openProfile('"+user._id+"')") Profile
+                            li: .logout(onclick="logout()") Logout
         .container
             block content
         script(src="/js/main.js") 

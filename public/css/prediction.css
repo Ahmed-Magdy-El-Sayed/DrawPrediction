@@ -18,7 +18,7 @@
 }
 
 .container{
-    padding-top: 80px;
+    padding-top: 60px;
 }
 #drawingInputName{
     background-color: transparent;
@@ -44,6 +44,15 @@
     transition: 0.2s;
 }
 
+.details .options .delete:hover{
+    background-color: firebrick;
+    color: white;
+}
+
 .details .options .save:hover, .details .options .download:hover{
     color: dodgerblue
+}
+
+.note{
+    margin-bottom: 10px;
 }

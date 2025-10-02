@@ -1,4 +1,3 @@
-const utilts = require("./utilts")
 const { distance } = require("./utilts")
 
 const geometry ={}
@@ -107,15 +106,15 @@ geometry.getLength = hull =>{
     let length = 0;
     hull.forEach((point, i)=>{
         const nextI = (i+1) % hull.length
-        length += utilts.distance(point, hull[nextI])
+        length += distance(point, hull[nextI])
     })
     return length
 }
 
 geometry.triangleArea = (A, B, C)=>{
-    const a = utilts.distance(A, B);
-    const b = utilts.distance(B, C);
-    const c = utilts.distance(A, C);
+    const a = distance(A, B);
+    const b = distance(B, C);
+    const c = distance(A, C);
     const p = (a+b+c) / 2
     return Math.sqrt(p * (p-a) * (p-b) * (p-c)) 
 }

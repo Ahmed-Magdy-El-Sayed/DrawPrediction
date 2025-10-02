@@ -1,21 +1,32 @@
 .container{
     display: flex;
     min-height: 100vh;
-    padding-top: 80px;
+    padding-top: 60px;
 }
 .user-details{
     width: 25%;
     border-right: 2px solid #484848;
-    margin-right: 20px;
 }
 .user-details .img-icon{
     height: unset;
     width: 50%;
 }
-.drawings{
-    display: flex;
-    gap: 20px;
+.alert{
+    width: 100%;
+    cursor: default;
+    border-radius: 10px;
 }
+
+.drawings{
+    width: 100%;
+    display: flex;
+    margin: 0 20px;
+    flex-wrap: wrap;
+    gap: 20px;
+    cursor: pointer;
+    height: fit-content;
+}
+
 .drawing img{
     width: 100px
 }
@@ -24,4 +35,27 @@
 }
 .drawing .date{
     margin: 0;
+    font-size: 12px;
+}
+
+@media (max-width: 580px) {
+    .container{
+        display: block;
+    }
+    .container .user-details{
+        display: flex;
+        width: 100%;
+        align-items: center;
+        border-right: unset;
+        border-bottom: 2px solid;
+        margin-bottom: 30px;
+        padding: 20px 0;
+    }
+    .container .user-details .img-icon{
+        width: 70px;
+        margin-right: auto;
+    }
+    .drawings{
+        justify-content: center;
+    }
 }

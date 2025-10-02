@@ -12,7 +12,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 .landing .content{
     width: 70%;
@@ -24,7 +24,7 @@
     animation-name: fade;
     animation-duration: 2s;
 }
-.landing .content title{
+.landing .content .title{
     margin-top: 0;
     font-size: 40px;
 }

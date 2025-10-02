@@ -19,7 +19,7 @@ suggest.onclick = ()=>{
         body: JSON.stringify({paths})
     }).then(res=>res.json())
     .then(({point, predictedLabel})=>{
-        label.innerHTML=`Get similar drawings for ${predictedLabel}...`
+        label.innerHTML=`Getting similar drawings to ${predictedLabel}...`
         document.querySelector(".download").dataset.label = predictedLabel
 
         fetch("/predicate/suggest",{
@@ -27,6 +27,7 @@ suggest.onclick = ()=>{
             headers:{'Content-Type':'application/json'},
             body: JSON.stringify({point, label: predictedLabel})
         }).then(res=>res.json()).then(suggests=>{
+            suggestsContainer.previousElementSibling.style.display = "block";
             suggests.forEach(drawing => {
                 suggestsContainer.innerHTML += `
                 <img style="width: 100px;" onclick="useSuggest(${JSON.stringify(drawing.paths)})" src="/${drawing.id}.png">
@@ -39,7 +40,7 @@ suggest.onclick = ()=>{
 const useSuggest = paths=>{
     sketch.addDraw(paths)
 }
-const download = ()=>{
+const downloadSketch = ()=>{
     const link = document.createElement("a")
     link.href = sketch.canvas.toDataURL()
     link.download = drawingInputName.value+"-drawing"
@@ -48,14 +49,21 @@ const download = ()=>{
     link.remove()
 }
 
-const save = ()=>{
+const save = target=>{
     if(!document.getElementById("drawingInputId"))
-        return document.querySelector(".navbar").insertAdjacentHTML("afterend", `
-                <h3 class="alert-info">
-                    Create account to save your drawing
-                    <span class="alert-close" onclick="this.parentElement.remove()">X</span>
-                </h3>
-            `)
+        return document.querySelector(".container").insertAdjacentHTML("afterbegin", `
+            <h3 class="alert alert-info">
+                Create account to save your drawing
+                <span class="alert-close" onclick="this.parentElement.remove()">X</span>
+            </h3>
+        `)
+    if(drawingInputName.value.trim() == "")
+        return document.querySelector(".container").insertAdjacentHTML("afterbegin", `
+            <h3 class="alert alert-info">
+                empty drawing name is not allowed
+                <span class="alert-close" onclick="this.parentElement.remove()">X</span>
+            </h3>
+        `)
     fetch("/predicate/save",{
         method:'post',
         headers:{'Content-Type':'application/json'},
@@ -65,33 +73,85 @@ const save = ()=>{
             img: sketch.canvas.toDataURL(), 
             paths: sketch.paths
         })
-    }).then(res=>{console.log(res.status)
+    }).then(res=>{
         if(res.status == 201){
-            if(res.body)
-                _id = res.id
-            document.body.insertAdjacentHTML("afterend", `
-                <h3 class="alert-success">
+            document.querySelector(".container").insertAdjacentHTML("afterbegin", `
+                <h3 class="alert alert-success">
                     The drawing saved successfully 
                     <span class="alert-close" onclick="this.parentElement.remove()">X</span>
                 </h3>
             `)
-        }else if(res.status == 406)
-            document.body.insertAdjacentHTML("afterend", `
-                <h3 class="alert-faild"> 
-                    the name is already used 
-                    <span class="alert-close" onclick="this.parentElement.remove()">X</span>
-                </h3>
-            `)
-        else if(res.status == 403)
-            document.body.insertAdjacentHTML("afterend", `
-                <h3 class="alert-info">
+            target.insertAdjacentHTML("beforebegin", `
+                <button class="alert-close" onclick="deleteDrawing(this)">delete</button>
+                `)
+            return res.json();
+        }else if(res.status == 403)
+            document.querySelector(".container").insertAdjacentHTML("afterbegin", `
+                <h3 class="alert alert-info">
                     Create account to save your drawing
                     <span class="alert-close" onclick="this.parentElement.remove()">X</span>
                 </h3>
             `)
         else
-            document.body.insertAdjacentHTML("afterend", `
-                <h3 class="alert-faild">
+            document.querySelector(".container").insertAdjacentHTML("afterbegin", `
+                <h3 class="alert alert-faild">
+                    Something went wrong
+                    <span class="alert-close" onclick="this.parentElement.remove()">X</span>
+                </h3>
+            `)
+    }).then(({id})=>{
+        if(id && document.getElementById("drawingInputId"))
+            drawingInputId.value = id
+    })
+}
+
+const deleteDrawing = target=>{
+    if(!document.getElementById("drawingInputId") || (drawingInputId && !drawingInputId.value))
+        return document.querySelector(".container").insertAdjacentHTML("afterbegin", `
+            <h3 class="alert alert-info">
+                No drawing to delete
+                <span class="alert-close" onclick="this.parentElement.remove()">X</span>
+            </h3>
+        `)
+    if(!confirm("Are you sure you want to delete this drawing?"))
+        return;
+    fetch("/profile/drawing",{
+        method:'delete',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({id: drawingInputId.value})
+    }).then(res=>{
+        if(res.status == 200){
+            document.querySelector(".container").insertAdjacentHTML("afterbegin", `
+                <h3 class="alert alert-success">
+                    The drawing deleted successfully 
+                    <span class="alert-close" onclick="this.parentElement.remove()">X</span>
+                </h3>
+            `)
+            sketch.clear()
+            drawingInputId.value = ""
+            drawingInputName.value = new Date().getTime();
+            document.querySelector(".download").dataset.label = "";
+            label.innerText = "";
+            suggestsContainer.previousElementSibling.style.display = "none";
+            suggestsContainer.innerHTML = ""
+            target.remove();
+        }else if(res.status == 403)
+            document.querySelector(".container").insertAdjacentHTML("afterbegin", `
+                <h3 class="alert alert-info">
+                    Create account to delete your drawing
+                    <span class="alert-close" onclick="this.parentElement.remove()">X</span>
+                </h3>
+            `)
+        else if(res.status == 400)
+            document.querySelector(".container").insertAdjacentHTML("afterbegin", `
+                <h3 class="alert alert-info">
+                    No drawing to delete
+                    <span class="alert-close" onclick="this.parentElement.remove()">X</span>
+                </h3>
+            `)
+        else
+            document.querySelector(".container").insertAdjacentHTML("afterbegin", `
+                <h3 class="alert alert-faild">
                     Something went wrong
                     <span class="alert-close" onclick="this.parentElement.remove()">X</span>
                 </h3>

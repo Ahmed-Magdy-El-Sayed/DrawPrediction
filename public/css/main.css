@@ -17,9 +17,13 @@ p, button, input{
     padding: 5px 20px;
     background-color: #33333388;
     position: fixed;
-    width: 100%;
+    width: 100vw;
     top: 0;
     z-index: 5;
+}
+.navbar .logo{
+    font-size: larger;
+    font-weight: 600;
 }
 input[type="radio"], input[type="checkbox"]{
     width: 30px;
@@ -33,6 +37,10 @@ a{
     list-style: none;
     display: flex;
     gap: 20px;
+}
+.navbar .links .active{
+    font-weight: bold;
+    color: white;
 }
 .navbar .menu{
     display: flex;
@@ -121,6 +129,7 @@ input {
 
 .account-info{
     position: relative;
+    margin-left: 20px;
 }
 
 .account-info img, .account-info .profile-link{
@@ -131,7 +140,8 @@ input {
     position: absolute;
     right: 0;
     list-style: none;
-    width: 200px;
+    width: 150px;
+    color: #333;
     background-color: #ededed;
     padding: 20px 0;
     margin: 0;
@@ -152,7 +162,7 @@ input {
     color: firebrick;
     cursor: pointer;
 }
-.alert-success, .alert-faild, .alert-info{
+.alert{
     margin: 0;
     padding: 10px 0;
     color: #ededed;
@@ -170,7 +180,7 @@ input {
 .alert-close{
     background-color: #ededed;
     color: firebrick;
-    padding: 0 4px;
+    padding: 2px 8px;
     border-radius: 5px;
     position: absolute;
     right: 20px;
@@ -184,16 +194,20 @@ input {
     .navbar .menu .icon{
         display: block;
     }
-    .navbar .menu ul{
+    .navbar .menu .links{
         display: none;
         position: absolute;
-        top: 24px;
-        right: 0;
-        background-color: #33333388;
-        padding: 20px 40px;
+        top: 60px;
+        right: 10px;
+        background-color: #ededed;
+        padding: 20px;
         border-radius: 20px;
     }
-    .navbar .menu ul li{
+    .navbar .menu .links li{
+        margin-bottom: 10px;
+    }
+    .navbar .menu .links a{
+        color: #333;
         margin-bottom: 10px;
     }
 }

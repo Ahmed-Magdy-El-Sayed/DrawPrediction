@@ -6,12 +6,13 @@ const confusionMatrix = container=>{
     container.style = `
         margin: auto;
         display: grid;
-        grid-template-columns: 80px repeat(${matDim-1}, 1fr);
-        grid-template-rows: repeat(${matDim}, 1fr);
-        width: 500px;
-        height: 500px;
+        grid-template-columns: 80px repeat(${matDim-1}, calc(300px / ${matDim-1}));
+        grid-template-rows: repeat(${matDim}, calc(400px / ${matDim}));
+        width: fit-content;
+        height: fit-content;
         color: #000000d1;;
         border: 1px solid;
+        font-size: 12px
     `
     container.innerHTML = `
         <h2 style="
@@ -20,6 +21,7 @@ const confusionMatrix = container=>{
             grid-column: 1;
             margin: auto;
             transform: rotateZ(-90deg);
+            transform-origin: 50px 25px;
         ">true classes</h2>
 
         <h2 style="
@@ -54,7 +56,8 @@ const confusionMatrix = container=>{
                     ${i==j+1? 
                         `background-color: rgba(0, 255, 0, ${a})` :
                         `background-color: rgba(255, 0, 0, ${a})` 
-                    }
+                    };
+                    padding: 50% 0
                 ">${cellVal}</span>
             `
             rowsSum[realLabel]= rowsSum[realLabel]? rowsSum[realLabel]+cellVal : cellVal

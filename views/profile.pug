@@ -5,22 +5,19 @@ block linkCSS
     link(rel="stylesheet", href="/css/profile.css")
 block content 
     .user-details
-        img.img-icon(src=user.img, alt="The user Image")
-        h1.m-0.mt-3= user.name
-        .account-options
-            button.red(onclick="deleteAccount()") Delete Account
+        img.img-icon(src=user?user.img:profileOwner.img, alt="The user Image")
+        h1.m-0.mt-3= user?user.name:profileOwner.name
+        -if(user)
+            .account-options
+                button.red(onclick="deleteAccount()") Delete Account
     .drawings
-        if(drawings[0] && String(user._id)==drawings[0].authorId)
+        if(drawings.length)
             each drawing in drawings 
-                .drawing(onclick=`editDrawing("${drawing._id}")`)
-                    img(src=drawing.img, alt="", srcset="")
-                    h4= drawing.name 
-                    p= new Date(parseInt(drawing.timestamp)).toLocaleString("en")
-        else
-            each drawing in drawings 
-                .drawing
+                .drawing(onclick= String(user?user._id:"")==drawings[0].authorId? `editDrawing("${drawing._id}")` : false)
                     img(src=drawing.img, alt="", srcset="")
                     h4.name= drawing.name 
                     p.date= new Date(parseInt(drawing.timestamp)).toLocaleString("en")
+        else
+            .alert(style="color: black;") No Drawings yet!
 block js 
     script(src="/js/profile.js") 

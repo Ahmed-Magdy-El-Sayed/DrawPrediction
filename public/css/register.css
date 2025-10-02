@@ -6,6 +6,10 @@
     overflow: hidden;
 }
 
+input{
+    outline-color: dodgerblue;
+}
+
 form{
     width: 50vw;
 }
@@ -17,6 +21,15 @@ form .msg{
 }
 form input:invalid + .msg{
     display: block;
+}
+form .submit{
+    margin: 20px 0;
+}
+form .signup-option, form .login-option{
+    display: none;
+} 
+form .signup-option a, form .login-option a{
+    color: dodgerblue;
 }
 
 .image-container{
@@ -53,10 +66,17 @@ form input:invalid + .msg{
     max-width: 70%;
 }
 
+.err{
+    color: firebrick;
+}
+
 @media (max-width: 580px) {
     form{
         width: 100vw;
     }
+    form .signup-option, form .login-option{
+        display: block;
+    } 
     .image-container{
         display: none;
     }

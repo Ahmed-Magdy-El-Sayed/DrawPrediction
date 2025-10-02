@@ -1,20 +1,15 @@
-Instructions:-
+Tech: Machine Learning (ANN, KNN), Node.js, PugJS, MongoDB
+Demo: (Add deployment link if available)
 
-1. get the data from this link:-
-	https://drive.google.com/file/d/14iF1HVrGwv4OMlLrZH1pj0lAjWffyDXN/view?usp=sharing
+📖 Description
 
-2. extract the folder and add it to the the app directory
+A sketch prediction app integrating a custom ANN trained from scratch and KNN for similarity-based suggestions, with a canvas-based drawing interface.
 
-3. install node.js
+✨ Features
 
-** all next commands should be in the app dir **
-4. run: npm install
-
-5. run: node ./ml/dataset_generator.js
-	- run this file twice, one time for each function seperatly.
-	- go to the file and scroll to the bottom to more understanding
-
-6. run: node ./ml/feature_extractor.js
-
-** to run the server **
-7. run: node app
+- ANN trained with backpropagation on 5k+ sketches
+- KNN for real-time sketch similarity lookup
+- Interactive HTML5 Canvas drawing UI
+- Node.js backend with REST API
+- MongoDB for storing and retrieving sketches
+- MVC architecture

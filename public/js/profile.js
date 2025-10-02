@@ -3,7 +3,7 @@ const editDrawing = drawingId=>{
         method:'post',
         headers:{'Content-Type':'text/plain'},
         body: drawingId
-    }).then(res=>{console.log(res)
+    }).then(res=>{
         if(res.status = 301)
             location.href = "/predicate"
         else
@@ -16,4 +16,11 @@ const editDrawing = drawingId=>{
     }).catch(err=>{
         console.log(err)
     })
+}
+
+const deleteAccount = ()=>{
+    if(!confirm("Are you sure you want to delete the account?"))
+        return;
+
+    location.href = "/profile/delete-account";
 }

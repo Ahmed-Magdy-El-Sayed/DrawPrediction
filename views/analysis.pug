@@ -5,7 +5,7 @@ block linkCSS
     link(rel="stylesheet", href="/css/analysis.css")
 block content 
     .testing-result
-        h2 Total Prediction Result:
+        h2 Model Testing Result:
         .all
             h3 All
             p= testingResult.all
@@ -15,8 +15,8 @@ block content
         .accuracy
             h3 Accuracy
             p= (testingResult.correct/testingResult.all *100).toFixed(2)+"%"
-    .samples(style="display: flex; justify-content: center; flex-wrap: wrap; overflow: auto; max-height: 40vh;")
-        button.blue(onclick="getTestedSamples(this)") Get Tested Samples 
+    //- .samples(style="display: flex; justify-content: center; flex-wrap: wrap; overflow: auto; max-height: 40vh;")
+    //-     button.blue(onclick="getTestedSamples(this)") Get Tested Sample 
     hr
     h2 The ANN Confusion Matrix 
     #MatrixContainer(data-matrix = matrix)
